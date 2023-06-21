@@ -1,13 +1,10 @@
-import * as React from "react";
-import { useState } from "react";
+import * as React from 'react';
+import { useState } from 'react';
+import { Button, Col, Input, Row } from 'antd';
+import useAddTodo from 'hooks/useAddTodo';
 
-import { useMutation, useQuery } from "@tanstack/react-query";
-import useTodos from "hooks/useTodos";
-import { Button, Col, Input, Row } from "antd";
-import useAddTodo from "hooks/useAddTodo";
-
-const TodoInput: React.FC = ({}) => {
-  const [value, setValue] = useState("");
+const TodoInput: React.FC = () => {
+  const [value, setValue] = useState('');
   const { addTodo, isLoading } = useAddTodo();
 
   const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -16,7 +13,7 @@ const TodoInput: React.FC = ({}) => {
 
   const handleAddTodo = () => {
     addTodo(value);
-    setValue("");
+    setValue('');
   };
 
   return (
@@ -32,8 +29,8 @@ const TodoInput: React.FC = ({}) => {
         <Col span={2}>
           <Button
             disabled={isLoading || !value}
-            onClick={handleAddTodo}
             type="primary"
+            onClick={handleAddTodo}
           >
             Add todo
           </Button>

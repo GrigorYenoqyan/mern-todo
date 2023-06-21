@@ -1,9 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
-import { getTodos } from "api";
+import { useQuery } from '@tanstack/react-query';
+import { getTodos } from 'api';
 
 const useTodos = () => {
   const { data = [], isLoading } = useQuery({
-    queryKey: ["todos"],
+    queryKey: ['todos'],
     queryFn: getTodos,
   });
 

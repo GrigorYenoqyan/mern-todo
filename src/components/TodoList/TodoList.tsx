@@ -1,20 +1,16 @@
-import * as React from "react";
-import { useState } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import useTodos from "hooks/useTodos";
-import { Checkbox, Input, List, Modal } from "antd";
-import TodoInput from "components/TodoInput/TodoInput";
-import useDeleteTodo from "hooks/useDeleteTodo";
-import useUpdateTodo from "hooks/useUpdateTodo";
+import * as React from 'react';
+import { useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
+import { Checkbox, Input, List, Modal, Space, Spin } from 'antd';
+import useDeleteTodo from 'hooks/useDeleteTodo';
+import useTodos from 'hooks/useTodos';
+import useUpdateTodo from 'hooks/useUpdateTodo';
 
 const TodoList: React.FC = () => {
   const [currentTodo, setCurrentTodo] = useState({});
   const { todos, isLoading } = useTodos();
   const { deleteTodo } = useDeleteTodo();
-  // const [editedValue, setEditedValue] = useState("");
   const { updateTodo } = useUpdateTodo();
-
-  // const currentTodo = todos.find((todo) => todo.id === editId).name;
 
   const queryClient = useQueryClient();
 
@@ -26,11 +22,6 @@ const TodoList: React.FC = () => {
     setCurrentTodo({ ...currentTodo, name: e.target.value });
   };
 
-  // const handleAddTodo = () => {
-  //   addTodo(value);
-  //   setValue("");
-  // };
-
   const handleEditClick = (todo) => {
     setCurrentTodo(todo);
   };
@@ -39,57 +30,65 @@ const TodoList: React.FC = () => {
     setCurrentTodo({});
   };
 
-  const handleEditTodo = () => {
-    queryClient.setQueryData(["todos"], (old) =>
-      old.map((item) => (item.id === currentTodo.id ? currentTodo : item))
-    );
+  const handleEditTodo = (e) => {
+    console.log(e.key);
+    if (!e.key || e.key === 'Enter') {
+      queryClient.setQueryData(['todos'], (old) =>
+        old.map((item) => (item.id === currentTodo.id ? currentTodo : item))
+      );
 
-    updateTodo(currentTodo);
-    setCurrentTodo({});
+      updateTodo(currentTodo);
+      setCurrentTodo({});
+    }
   };
 
   const handleCompleteTodo = ({ id, name, done }) => {
-    queryClient.setQueryData(["todos"], (old) =>
+    queryClient.setQueryData(['todos'], (old) =>
       old.map((item) => (item.id === id ? { id, name, done } : item))
     );
 
     updateTodo({ id, name, done: !done });
   };
 
-  return (
+  return isLoading ? (
+    <Space size="middle">
+      <Spin size="large" />
+    </Space>
+  ) : (
     <>
       <List
-        size="large"
-        itemLayout="horizontal"
         dataSource={todos}
+        itemLayout="horizontal"
         renderItem={(todo) => (
           <List.Item
             actions={[
               <a key="edit" onClick={() => handleEditClick(todo)}>
                 Edit
               </a>,
-              <a onClick={() => handleDelete(todo.id)} key="delete">
+              <a key="delete" onClick={() => handleDelete(todo.id)}>
                 Delete
               </a>,
             ]}
           >
             <Checkbox
-              onChange={() => handleCompleteTodo(todo)}
               checked={todo.done}
+              onChange={() => handleCompleteTodo(todo)}
             >
               {todo.name}
             </Checkbox>
           </List.Item>
         )}
+        size="large"
       />
       <Modal
-        title="Edit todo"
+        cancelButtonProps={{ disabled: !currentTodo.name }}
         open={currentTodo.id}
+        title="Edit todo"
         onOk={handleEditTodo}
-        // confirmLoading={confirmLoading}
         onCancel={handleCancelEdit}
       >
         <Input
+          onKeyDown={handleEditTodo}
           placeholder="Todo title"
           value={currentTodo.name}
           onChange={handleEditValueChange}
