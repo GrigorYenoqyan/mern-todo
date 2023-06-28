@@ -1,18 +1,13 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { useQueryClient } from '@tanstack/react-query';
 import { Checkbox, Input, List, Modal, Space, Spin } from 'antd';
-import useDeleteTodo from 'hooks/useDeleteTodo';
-import useTodos from 'hooks/useTodos';
-import useUpdateTodo from 'hooks/useUpdateTodo';
+import { useDeleteTodo, useTodos, useUpdateTodo } from 'hooks';
 
 const TodoList: React.FC = () => {
   const [currentTodo, setCurrentTodo] = useState({});
   const { todos, isLoading } = useTodos();
   const { deleteTodo } = useDeleteTodo();
   const { updateTodo } = useUpdateTodo();
-
-  const queryClient = useQueryClient();
 
   const handleDelete = (id: number) => {
     deleteTodo(id);
@@ -31,22 +26,13 @@ const TodoList: React.FC = () => {
   };
 
   const handleEditTodo = (e) => {
-    console.log(e.key);
     if (!e.key || e.key === 'Enter') {
-      queryClient.setQueryData(['todos'], (old) =>
-        old.map((item) => (item.id === currentTodo.id ? currentTodo : item))
-      );
-
       updateTodo(currentTodo);
       setCurrentTodo({});
     }
   };
 
   const handleCompleteTodo = ({ id, name, done }) => {
-    queryClient.setQueryData(['todos'], (old) =>
-      old.map((item) => (item.id === id ? { id, name, done } : item))
-    );
-
     updateTodo({ id, name, done: !done });
   };
 

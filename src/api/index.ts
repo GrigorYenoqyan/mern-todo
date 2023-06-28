@@ -14,7 +14,7 @@ export const addTodo = async (todo: string) => {
   try {
     const { data } = await axiosInstance.post('/todos', { name: todo });
 
-    return data.todos;
+    return data;
   } catch (error) {
     return error;
   }

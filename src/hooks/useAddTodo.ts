@@ -1,13 +1,13 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { addTodo } from 'api';
+import useStore from 'store';
 
-const useAddTodos = () => {
-  const queryClient = useQueryClient();
+const useAddTodo = () => {
+  const { addTodo: addNewTodo } = useStore();
 
   const { mutate, isLoading } = useMutation({
     mutationFn: addTodo,
-
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['todos'] }),
+    onSuccess: (data) => addNewTodo(data.todo),
   });
 
   return {
@@ -16,4 +16,4 @@ const useAddTodos = () => {
   };
 };
 
-export default useAddTodos;
+export default useAddTodo;

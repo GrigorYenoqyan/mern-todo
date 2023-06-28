@@ -1,14 +1,18 @@
 import { useQuery } from '@tanstack/react-query';
 import { getTodos } from 'api';
+import useStore from 'store';
 
 const useTodos = () => {
-  const { data = [], isLoading } = useQuery({
+  const { todos, setTodos } = useStore();
+
+  const { isLoading } = useQuery({
     queryKey: ['todos'],
     queryFn: getTodos,
+    onSuccess: (data) => setTodos(data),
   });
 
   return {
-    todos: data,
+    todos,
     isLoading,
   };
 };

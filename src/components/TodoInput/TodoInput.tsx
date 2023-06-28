@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { Button, Col, Input, Row } from 'antd';
-import useAddTodo from 'hooks/useAddTodo';
+import { useAddTodo } from 'hooks';
 
 const TodoInput: React.FC = () => {
   const [value, setValue] = useState('');

@@ -1,13 +1,13 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { deleteTodo } from 'api';
+import useStore from 'store';
 
 const useDeleteTodos = () => {
-  const queryClient = useQueryClient();
+  const { deleteTodo: removeTodo } = useStore();
 
   const { mutate, isLoading } = useMutation({
     mutationFn: deleteTodo,
-
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['todos'] }),
+    onMutate: (variables) => removeTodo(variables),
   });
 
   return {
