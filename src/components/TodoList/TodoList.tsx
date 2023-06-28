@@ -25,8 +25,8 @@ const TodoList: React.FC = () => {
     setCurrentTodo({});
   };
 
-  const handleEditTodo = (e) => {
-    if (!e.key || e.key === 'Enter') {
+  const handleEditTodo = (e: React.KeyboardEvent | React.MouseEvent) => {
+    if (e.type !== 'keydown' || (e as React.KeyboardEvent).key === 'Enter') {
       updateTodo(currentTodo);
       setCurrentTodo({});
     }

@@ -11,19 +11,22 @@ const TodoInput: React.FC = () => {
     setValue(e.target.value);
   };
 
-  const handleAddTodo = () => {
-    addTodo(value);
-    setValue('');
+  const handleAddTodo = (e: React.KeyboardEvent | React.MouseEvent) => {
+    if (!e.key || e.key === 'Enter') {
+      addTodo(value);
+      setValue('');
+    }
   };
 
   return (
-    <p>
+    <section>
       <Row gutter={10}>
         <Col span={20}>
           <Input
             placeholder="Add Todo"
             value={value}
             onChange={handleValueChange}
+            onKeyDown={handleAddTodo}
           />
         </Col>
         <Col span={2}>
@@ -36,7 +39,7 @@ const TodoInput: React.FC = () => {
           </Button>
         </Col>
       </Row>
-    </p>
+    </section>
   );
 };
 
