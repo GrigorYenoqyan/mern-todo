@@ -15,6 +15,7 @@
     "react/function-component-definition": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".jsx", ".tsx"] }],
     "import/extensions": 0,
+    "no-shadow": "off",
     "@typescript-eslint/no-var-requires": 0,
     "react/boolean-prop-naming": [
       1,
