@@ -12,7 +12,7 @@ const TodoInput: React.FC = () => {
   };
 
   const handleAddTodo = (e: React.KeyboardEvent | React.MouseEvent) => {
-    if (!e.key || e.key === 'Enter') {
+    if (e.type !== 'keydown' || (e as React.KeyboardEvent).key === 'Enter') {
       addTodo(value);
       setValue('');
     }

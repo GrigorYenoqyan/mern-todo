@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { Checkbox, Input, List, Modal, Space, Spin } from 'antd';
+import { Button, Checkbox, Input, List, Modal, Space, Spin } from 'antd';
 import { useDeleteTodo, useTodos, useUpdateTodo } from 'hooks';
+import { Todo } from 'types';
 
 const TodoList: React.FC = () => {
-  const [currentTodo, setCurrentTodo] = useState({});
+  const [currentTodo, setCurrentTodo] = useState<Todo | null>(null);
   const { todos, isLoading } = useTodos();
   const { deleteTodo } = useDeleteTodo();
   const { updateTodo } = useUpdateTodo();
@@ -14,25 +15,25 @@ const TodoList: React.FC = () => {
   };
 
   const handleEditValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCurrentTodo({ ...currentTodo, name: e.target.value });
+    setCurrentTodo({ ...(currentTodo as Todo), name: e.target.value });
   };
 
-  const handleEditClick = (todo) => {
+  const handleEditClick = (todo: Todo) => {
     setCurrentTodo(todo);
   };
 
   const handleCancelEdit = () => {
-    setCurrentTodo({});
+    setCurrentTodo(null);
   };
 
   const handleEditTodo = (e: React.KeyboardEvent | React.MouseEvent) => {
     if (e.type !== 'keydown' || (e as React.KeyboardEvent).key === 'Enter') {
       updateTodo(currentTodo);
-      setCurrentTodo({});
+      setCurrentTodo(null);
     }
   };
 
-  const handleCompleteTodo = ({ id, name, done }) => {
+  const handleCompleteTodo = ({ id, name, done }: Todo) => {
     updateTodo({ id, name, done: !done });
   };
 
@@ -45,15 +46,23 @@ const TodoList: React.FC = () => {
       <List
         dataSource={todos}
         itemLayout="horizontal"
-        renderItem={(todo) => (
+        renderItem={(todo: Todo) => (
           <List.Item
             actions={[
-              <a key="edit" onClick={() => handleEditClick(todo)}>
+              <Button
+                type="link"
+                key="edit"
+                onClick={() => handleEditClick(todo)}
+              >
                 Edit
-              </a>,
-              <a key="delete" onClick={() => handleDelete(todo.id)}>
+              </Button>,
+              <Button
+                type="link"
+                key="delete"
+                onClick={() => handleDelete(todo.id)}
+              >
                 Delete
-              </a>,
+              </Button>,
             ]}
           >
             <Checkbox
@@ -67,8 +76,8 @@ const TodoList: React.FC = () => {
         size="large"
       />
       <Modal
-        cancelButtonProps={{ disabled: !currentTodo.name }}
-        open={currentTodo.id}
+        cancelButtonProps={{ disabled: !currentTodo?.name }}
+        open={!!currentTodo?.id}
         title="Edit todo"
         onOk={handleEditTodo}
         onCancel={handleCancelEdit}
@@ -76,7 +85,7 @@ const TodoList: React.FC = () => {
         <Input
           onKeyDown={handleEditTodo}
           placeholder="Todo title"
-          value={currentTodo.name}
+          value={currentTodo?.name}
           onChange={handleEditValueChange}
         />
       </Modal>

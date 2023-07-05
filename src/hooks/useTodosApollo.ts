@@ -1,5 +1,11 @@
 import { useQuery, gql } from '@apollo/client';
 import useStore from 'store';
+import { Todo } from 'types';
+
+type Hook = () => {
+  todos: Todo[];
+  isLoading: boolean;
+};
 
 const GET_TODOS = gql`
   query getTodos {
@@ -11,7 +17,7 @@ const GET_TODOS = gql`
   }
 `;
 
-const useTodos = () => {
+const useTodos: Hook = () => {
   const { todos, setTodos } = useStore();
 
   const { loading } = useQuery(GET_TODOS, {

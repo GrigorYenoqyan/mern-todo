@@ -4,7 +4,7 @@ import TodoList from 'components/TodoList/TodoList';
 
 const TodoApp: React.FC = () => {
   return (
-    <section style={{ width: '60%', margin: 'auto' }}>
+    <section className="mx-auto w-1/2">
       <TodoInput />
       <TodoList />
     </section>

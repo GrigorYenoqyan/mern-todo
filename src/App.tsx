@@ -4,6 +4,8 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import TodoApp from 'components/TodoApp/TodoApp';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
+import 'styles/styles.output.css';
+
 const queryClient = new QueryClient();
 
 const apolloClient = new ApolloClient({

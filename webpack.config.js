@@ -39,8 +39,8 @@ module.exports = (_, args) => {
           test: /.s?css$/,
           use: [
             MiniCssExtractPlugin.loader,
-            'style-loader',
             'css-loader',
+            'postcss-loader',
             'sass-loader',
           ],
         },
@@ -56,12 +56,16 @@ module.exports = (_, args) => {
       new HtmlWebpackPlugin({
         template: path.join(__dirname, 'public', 'index.html'),
         env: {
-          MONITORING_URL: 'process.env.MONITORING_URL',
+          TEST_VAR: 'process.env.TEST_VAR',
         },
       }),
 
       new webpack.DefinePlugin({
         'process.env': JSON.stringify(process.env),
+      }),
+
+      new MiniCssExtractPlugin({
+        filename: 'css/[name].[contenthash:4].css',
       }),
     ],
 
