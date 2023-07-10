@@ -19,27 +19,25 @@ const TodoInput: React.FC = () => {
   };
 
   return (
-    <section>
-      <Row gutter={10}>
-        <Col span={20}>
-          <Input
-            placeholder="Add Todo"
-            value={value}
-            onChange={handleValueChange}
-            onKeyDown={handleAddTodo}
-          />
-        </Col>
-        <Col span={2}>
-          <Button
-            disabled={isLoading || !value}
-            type="primary"
-            onClick={handleAddTodo}
-          >
-            Add todo
-          </Button>
-        </Col>
-      </Row>
-    </section>
+    <Row gutter={10}>
+      <Col span={20}>
+        <Input
+          placeholder="Add Todo"
+          value={value}
+          onChange={handleValueChange}
+          onKeyDown={handleAddTodo}
+        />
+      </Col>
+      <Col span={2}>
+        <Button
+          disabled={isLoading || !value}
+          type="primary"
+          onClick={handleAddTodo}
+        >
+          Add todo
+        </Button>
+      </Col>
+    </Row>
   );
 };
 

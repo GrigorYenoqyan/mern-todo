@@ -15,11 +15,12 @@
     "react/function-component-definition": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".jsx", ".tsx"] }],
     "import/extensions": 0,
-    "no-shadow": "off",
+    "no-shadow": 0,
     "@typescript-eslint/no-var-requires": 0,
     "react/boolean-prop-naming": [
       1,
       { "rule": "^(is|has|can)[A-Z]([A-Za-z0-9]?)+" }
-    ]
+    ],
+    "import/no-extraneous-dependencies": 0
   }
 }

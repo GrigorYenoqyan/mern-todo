@@ -38,9 +38,11 @@ const TodoList: React.FC = () => {
   };
 
   return isLoading ? (
-    <Space size="middle">
-      <Spin size="large" />
-    </Space>
+    <section className="flex h-screen w-full justify-center">
+      <Space size="middle">
+        <Spin size="large" />
+      </Space>
+    </section>
   ) : (
     <>
       <List
@@ -66,6 +68,7 @@ const TodoList: React.FC = () => {
             ]}
           >
             <Checkbox
+              className={todo.done ? 'text-gray-500 line-through' : ''}
               checked={todo.done}
               onChange={() => handleCompleteTodo(todo)}
             >

@@ -12,11 +12,10 @@ module.exports = {
       colors: {
         'default-blue': '#243c5a',
       },
-    }
+    },
   },
   corePlugins: {
     preflight: false,
   },
   plugins: [],
 };
-
