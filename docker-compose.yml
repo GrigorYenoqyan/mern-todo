@@ -1,0 +1,18 @@
+version: "3.8"
+
+services: 
+  mern-todo-api:
+    image: grigoryenoqyan/mern-todo-api
+    ports:
+      - "5000:5000"
+
+  mern-todo:
+    build: ./
+    container_name: mern-todo
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
+    stdin_open: true
+    tty: true
