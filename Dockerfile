@@ -13,4 +13,4 @@ ENV HTTP_REQUESTS_TIMEOUT=5000
 
 EXPOSE 3000
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "dev"]
