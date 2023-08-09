@@ -44,7 +44,8 @@ https://mern-todo-93abb.web.app
 Make sure you have the following installed on your system:
 
 - Node.js (https://nodejs.org)
-- npm (Node Package Manager, comes with Node.js) 
+- npm (Node Package Manager, comes with Node.js)
+- [Docker](https://www.docker.com/) (optional): To build and test in a container environment.
 
 <br>
 
@@ -64,9 +65,19 @@ In order to run the application Type the following command
 npm run dev
 ```
 
-The Application Runs on **localhost:3000**
+The application runs on **localhost:3000**
+
 <br>
 
 ## Backend Repository
 The backend of this application is available in the following repository: [mern-todo-api](https://github.com/GrigorYenoqyan/mern-todo-api)
 
+<br>
+
+## Build and Run with Docker Compose
+In order to run the app along with its backend you need to run
+
+```bash
+docker-compose up
+```
+The application runs on **localhost:3000**
