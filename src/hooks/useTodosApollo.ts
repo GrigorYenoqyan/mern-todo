@@ -9,7 +9,7 @@ type Hook = () => {
 
 const GET_TODOS = gql`
   query getTodos {
-    getTodos {
+    todos {
       name
       done
       id
@@ -21,7 +21,7 @@ const useTodos: Hook = () => {
   const { todos, setTodos } = useStore();
 
   const { loading } = useQuery(GET_TODOS, {
-    onCompleted: (data) => setTodos(data.getTodos),
+    onCompleted: (data) => setTodos(data.todos),
   });
 
   return {
