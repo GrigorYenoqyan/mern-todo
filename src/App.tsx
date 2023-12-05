@@ -5,6 +5,7 @@ import TodoApp from 'components/TodoApp/TodoApp';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
 import 'styles/styles.output.css';
+import { PanelContextProvider } from 'components/PanelContext';
 
 const queryClient = new QueryClient();
 
@@ -14,11 +15,14 @@ const apolloClient = new ApolloClient({
 });
 
 const App: React.FC = () => {
+  console.log('App');
   return (
     <ApolloProvider client={apolloClient}>
       <QueryClientProvider client={queryClient}>
-        <p>{new Date().toDateString()}</p>
-        <TodoApp />
+        <PanelContextProvider>
+          <p>{new Date().toDateString()}</p>
+          <TodoApp />
+        </PanelContextProvider>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </ApolloProvider>

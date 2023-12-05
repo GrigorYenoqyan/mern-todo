@@ -3,12 +3,15 @@ import { useState } from 'react';
 import { Button, Checkbox, Input, List, Modal, Space, Spin } from 'antd';
 import { useDeleteTodo, useTodos, useUpdateTodo } from 'hooks';
 import { Todo } from 'types';
+import { usePanelContext } from 'components/PanelContext';
 
 const TodoList: React.FC = () => {
   const [currentTodo, setCurrentTodo] = useState<Todo | null>(null);
   const { todos, isLoading } = useTodos();
   const { deleteTodo } = useDeleteTodo();
   const { updateTodo } = useUpdateTodo();
+  console.log('TodoList');
+  const { content, setContent } = usePanelContext();
 
   const handleDelete = (id: number) => {
     deleteTodo(id);
@@ -35,6 +38,7 @@ const TodoList: React.FC = () => {
 
   const handleCompleteTodo = ({ id, name, done }: Todo) => {
     updateTodo({ id, name, done: !done });
+    setContent('dsa');
   };
 
   return isLoading ? (

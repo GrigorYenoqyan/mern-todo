@@ -3,6 +3,7 @@ import TodoInput from 'components/TodoInput';
 import TodoList from 'components/TodoList';
 
 const TodoApp: React.FC = () => {
+  console.log('TodoApp');
   return (
     <section
       data-qa="todoAppSection"
